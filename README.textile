@@ -39,9 +39,9 @@ h2. Resources
 
 h2. Contribute
 
-- Fork project
-- Hack / code
-- Send a pull request back to me
+* Fork project
+* Make changes / updates
+* Send a pull request back to me
 
 h2. License
 
