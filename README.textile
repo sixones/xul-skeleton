@@ -5,28 +5,25 @@ Mozilla build system.
 
 h2. Usage
 
-- Get the Mozilla build system source
-- Fork project or clone the source
-- Place your project directory inside your Mozilla directory
-- Change the pre-defined variables (through the art of find + replace in your fave text editor)
-- Code and release your app, try to give us some credit.
+* Get the Mozilla build system source
+* Fork project or clone the source
+* Place your project directory inside your Mozilla directory
+* Change the pre-defined variables (through the art of find + replace in your fave text editor)
+* Code and release your app, try to give us some credit.
 
 h3. Predefined variables
 
 To make things abit easier, I've used some variables throughout the application you can simply go through each variable
 and use find + replace across all the files
 
-{%APP_NAME%} - Application name (without spaces), use the folder name of your project
-{%APP_DISPLAY_NAME%} - Application display name
-{%APP_VERSION%} - Version string
-
-{%APP_VENDOR%} - Vendor name
-{%APP_ID%} - Unique application id, usually something like org.sixones@zenses or a GUID
-{%APP_COPYRIGHT%} - Copyright notice
-
-{%MAIN_CHROME%} - The default xul chrome file to launch on startup, dont include the .xul extension
-
-{%IDL_UUID} - Random GUID for your first idl header
+* {%APP_NAME%} - Application name (without spaces), use the folder name of your project
+* {%APP_DISPLAY_NAME%} - Application display name
+* {%APP_VERSION%} - Version string
+* {%APP_VENDOR%} - Vendor name
+* {%APP_ID%} - Unique application id, usually something like org.sixones@zenses or a GUID
+* {%APP_COPYRIGHT%} - Copyright notice
+* {%MAIN_CHROME%} - The default xul chrome file to launch on startup, dont include the .xul extension
+* {%IDL_UUID} - Random GUID for your first idl header
 
 h3. XPCOM components
 
