@@ -1,0 +1,93 @@
+DEPTH   = ../..
+topsrcdir = @top_srcdir@
+srcdir    = @srcdir@
+VPATH   = @srcdir@
+
+include $(DEPTH)/config/autoconf.mk
+
+PREF_JS_EXPORTS = \
+  $(srcdir)/default-prefs.js \
+  $(NULL)
+DIST_FILES = application.ini
+
+include $(topsrcdir)/config/rules.mk
+
+GRE_MILESTONE = $(shell $(PYTHON) $(topsrcdir)/config/printconfigsetting.py $(LIBXUL_DIST)/bin/platform.ini Build Milestone)
+GRE_BUILDID = $(shell $(PYTHON) $(topsrcdir)/config/printconfigsetting.py $(LIBXUL_DIST)/bin/platform.ini Build BuildID)
+APP_BUILDID = $(shell date -u +%Y%m%d%H)
+
+DEFINES += -DGRE_MILESTONE=$(GRE_MILESTONE) -DGRE_BUILDID=$(GRE_BUILDID) -DAPP_BUILDID=$(APP_BUILDID) -DAPP_NAME=$(MOZ_APP_DISPLAYNAME) -DAPP_VERSION=$(MOZ_APP_VERSION)
+
+ifeq ($(USE_SHORT_LIBNAME), 1)
+	APP_BINARY = $(MOZ_APP_NAME)$(BIN_SUFFIX)
+else
+	APP_BINARY = $(MOZ_APP_NAME)-bin$(BIN_SUFFIX)
+endif
+
+# These are binaries in the sdk xulrunner instance that we don't want/need
+SDK_STRIP = \
+  mangle* \
+  nsinstall* \
+  regxpcom* \
+  shlibsign* \
+  ssltunnel* \
+  xpcshell* \
+  xpidl* \
+  xpt_dump* \
+  xpt_link* \
+  $(NULL)
+
+ifneq (,$(filter mac cocoa,$(MOZ_WIDGET_TOOLKIT)))
+
+APP_NAME = $(MOZ_APP_DISPLAYNAME)
+APP_VERSION = $(MOZ_APP_VERSION)
+
+ifdef MOZ_DEBUG
+	APP_NAME := $(APP_NAME)
+endif
+
+AB_CD = $(MOZ_UI_LOCALE)
+
+AB := $(firstword $(subst -, ,$(AB_CD)))
+
+clean clobber repackage::
+	rm -rf $(DIST)/$(APP_NAME).app
+
+APPFILES = Resources
+XUL_FRAMEWORK = $(DIST)/$(APP_NAME).app/Contents/Frameworks/XUL.framework
+
+libs repackage:: application.ini
+	mkdir -p $(DIST)/$(APP_NAME).app/Contents/MacOS
+	rsync -a --exclude "*.in" --exclude ".DS_Store" $(srcdir)/macbuild/Contents $(DIST)/$(APP_NAME).app --exclude English.lproj
+	mkdir -p $(DIST)/$(APP_NAME).app/Contents/Resources/$(AB).lproj
+	rsync -a --exclude "*.in" --exclude ".DS_Store" $(srcdir)/macbuild/Contents/Resources/English.lproj/ $(DIST)/$(APP_NAME).app/Contents/Resources/$(AB).lproj
+	sed -e "s/%APP_VERSION%/$(APP_VERSION)/" -e "s/%APP_NAME%/$(APP_NAME)/" -e "s/%APP_BINARY%/$(APP_BINARY)/" $(srcdir)/macbuild/Contents/Info.plist.in > $(DIST)/$(APP_NAME).app/Contents/Info.plist
+	sed -e "s/%APP_VERSION%/$(APP_VERSION)/" -e "s/%APP_NAME%/$(APP_NAME)/" $(srcdir)/macbuild/Contents/Resources/English.lproj/InfoPlist.strings.in | iconv -f UTF-8 -t UTF-16 > $(DIST)/$(APP_NAME).app/Contents/Resources/$(AB).lproj/InfoPlist.strings
+	rsync -a $(DIST)/bin/ $(DIST)/$(APP_NAME).app/Contents/$(APPFILES)
+	cp $(LIBXUL_DIST)/bin/xulrunner$(BIN_SUFFIX) $(DIST)/$(APP_NAME).app/Contents/MacOS/$(APP_BINARY)
+	mkdir -p $(XUL_FRAMEWORK)
+	rsync -a --copy-unsafe-links $(LIBXUL_DIST)/bin/ $(XUL_FRAMEWORK)
+	cd $(XUL_FRAMEWORK) && $(RM) -f $(SDK_STRIP)
+	cp $(srcdir)/../chrome/locales/$(MOZ_UI_LOCALE)/updater.ini $(XUL_FRAMEWORK)/updater.app/Contents/MacOS
+#	remove version control dirs from packaged app
+	find $(DIST)/$(APP_NAME).app -type d -name "CVS" -prune -exec rm -rf {} \;
+	find $(DIST)/$(APP_NAME).app -type d -name ".svn" -prune -exec rm -rf {} \;
+
+else
+
+libs::
+	cp $(LIBXUL_DIST)/bin/xulrunner-stub$(BIN_SUFFIX) $(DIST)/bin/$(APP_BINARY)
+	$(NSINSTALL) -D $(DIST)/bin/xulrunner
+	(cd $(LIBXUL_DIST)/bin && tar $(TAR_CREATE_FLAGS) - .) | (cd $(DIST)/bin/xulrunner && tar -xf -)
+	cd $(DIST)/bin/xulrunner && $(RM) -f $(SDK_STRIP)
+	cp $(srcdir)/../chrome/locales/$(MOZ_UI_LOCALE)/updater.ini $(DIST)/bin/xulrunner
+	$(NSINSTALL) -D $(DIST)/bin/chrome/icons/default
+ifeq ($(MOZ_WIDGET_TOOLKIT),gtk2)
+	cp $(srcdir)/default.png $(DIST)/bin/chrome/icons/default/default.png
+endif
+ifeq ($(OS_ARCH),WINNT)
+	cp $(srcdir)/default.ico $(DIST)/bin/chrome/icons/default/default.ico
+	$(DIST)/bin/redit $(DIST)/bin/$(APP_BINARY) $(srcdir)/default.ico
+endif
+
+endif #cocoa

@@ -1,0 +1,10 @@
+DEPTH   = ../../..
+topsrcdir = @top_srcdir@
+srcdir    = @srcdir@
+VPATH   = @srcdir@
+
+include $(DEPTH)/config/autoconf.mk
+
+DEFINES += -DAB_CD=$(MOZ_UI_LOCALE)
+
+include $(topsrcdir)/config/rules.mk

@@ -1,0 +1,34 @@
+DEPTH     = ../../..
+topsrcdir = @top_srcdir@
+srcdir    = @srcdir@
+VPATH     = @srcdir@
+
+#include $(DEPTH)/config/autoconf.mk
+
+## uncomment everything below to enable components
+
+MODULE          = $(MOZ_APP_NAME)
+LIBRARY_NAME    = $(MOZ_APP_NAME)
+IS_COMPONENT    = 1
+USE_STATIC_LIBS = 1
+
+REQUIRES = \
+  xpcom \
+  string \
+  necko \
+  pipnss \
+  $(NULL)
+
+LOCAL_INCLUDES += $(NSS_CFLAGS)
+
+CPPSRCS = \
+  nsYourApp.cpp \
+  $(NULL)
+
+EXTRA_DSO_LDOPTS = \
+  $(XPCOM_GLUE_LDOPTS) \
+  $(NSS_LIBS) \
+  $(NSPR_LIBS) \
+  $(NULL)
+
+include $(topsrcdir)/config/rules.mk

@@ -1,0 +1,7 @@
+#include "nsISupports.idl"
+
+[scriptable, uuid({%IDL_UUID})]
+interface nsiYourApp : nsISupports
+{
+	
+};

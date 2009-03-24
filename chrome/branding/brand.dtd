@@ -1,0 +1,2 @@
+<!ENTITY  brandShortName        "{%APP_DISPLAY_NAME%}">  
+<!ENTITY  vendorShortName       "{%APP_VENDOR%}">
