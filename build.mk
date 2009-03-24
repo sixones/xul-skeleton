@@ -5,23 +5,23 @@ ifdef MOZ_EXTENSIONS
 endif
 
 tier_app_dirs += \
-  {%APP_NAME%} \
+  @_APP_NAME_@ \
   $(NULL)
 
 ifdef MOZ_MOCHITEST
 tier_testharness_dirs += \
   testing/mochitest \
-  {%APP_NAME%}/tests \
+  @_APP_NAME_@/tests \
   $(NULL)
 endif
 
 installer:
-	@echo "{%APP_DISPLAY_NAME%} doesn't have an installer yet."
+	@echo "@_APP_DISPLAY_NAME_@ doesn't have an installer yet."
 	@exit 1
 
 package:
-	@$(MAKE) -C {%APP_NAME%}/installer
+	@$(MAKE) -C @_APP_NAME_@/installer
 
 install::
-	@echo "{%APP_DISPLAY_NAME%} cannot be installed directly."
+	@echo "@_APP_DISPLAY_NAME_@ cannot be installed directly."
 	@exit 1

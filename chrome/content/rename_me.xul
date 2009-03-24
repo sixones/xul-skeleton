@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css" ?>
-<?xml-stylesheet href="chrome://{%APP_NAME%}/skin/global.css" type="text/css" ?>
+<?xml-stylesheet href="chrome://@_APP_NAME_@/skin/global.css" type="text/css" ?>
 
 <!DOCTYPE window [
 	<!ENTITY % brandDTD SYSTEM "chrome://branding/locale/brand.dtd" >
 	%brandDTD;
-	<!ENTITY % windowDTD SYSTEM "chrome://{%APP_NAME%}/locale/global.dtd" >
+	<!ENTITY % windowDTD SYSTEM "chrome://@_APP_NAME_@/locale/global.dtd" >
 	%windowDTD;
 ]>
 
-<window windowtype="{%APP_NAME%}:main" title="&brandShortName;"
+<window windowtype="@_APP_NAME_@:main" title="&brandShortName;"
         xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 </window>

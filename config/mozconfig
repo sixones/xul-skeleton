@@ -1,4 +1,4 @@
-ac_add_options --enable-application={%APP_NAME%}
+ac_add_options --enable-application=@_APP_NAME_@
 ac_add_options --disable-tests
 ac_add_options --enable-optimize
 

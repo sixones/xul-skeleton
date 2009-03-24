@@ -1,4 +1,4 @@
 #filter substitution
 
-{%APP_NAME%}.jar:
+@_APP_NAME_@.jar:
 % content branding %content/branding/

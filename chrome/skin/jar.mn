@@ -1,3 +1,3 @@
 skin.jar:
-% skin {%APP_NAME%} classic/1.0 %
+% skin @_APP_NAME_@ classic/1.0 %
   global.css

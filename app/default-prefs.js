@@ -1,7 +1,7 @@
 // Chrome settings
-pref("toolkit.defaultChromeURI", "chrome://{%APP_NAME%}/content/{%MAIN_CHROME%}.xul");
+pref("toolkit.defaultChromeURI", "chrome://@_APP_NAME_@/content/@_MAIN_CHROME_@.xul");
 pref("toolkit.defaultChromeFeatures", "chrome,resizable,centerscreen,dialog=no");
-pref("toolkit.singletonWindowType", "{%APP_NAME%}:main");
+pref("toolkit.singletonWindowType", "@_APP_NAME_@:main");
 
 // Enable application updates
 pref("app.update.enabled", true);
