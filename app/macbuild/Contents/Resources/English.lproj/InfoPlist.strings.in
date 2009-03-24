@@ -1,2 +1,2 @@
 CFBundleName = "%APP_NAME%";
-NSHumanReadableCopyright = "@_APP_COPYRIGHT_@";
+NSHumanReadableCopyright = "__APP_COPYRIGHT__";

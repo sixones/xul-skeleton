@@ -1,4 +1,4 @@
 @AB_CD@.jar:
-% locale @_APP_NAME_@ @AB_CD@ %
-  @_APP_NAME_@.dtd                            (@AB_CD@/global.dtd)
-  @_APP_NAME_@.properties                     (@AB_CD@/global.properties)
+% locale __APP_NAME__ @AB_CD@ %
+  __APP_NAME__.dtd                            (@AB_CD@/global.dtd)
+  __APP_NAME__.properties                     (@AB_CD@/global.properties)

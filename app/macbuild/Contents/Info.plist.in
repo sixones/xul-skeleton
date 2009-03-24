@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>%APP_BINARY%</string>
 	<key>CFBundleGetInfoString</key>
-	<string>%APP_NAME% %APP_VERSION%, @_APP_COPYRIGHT_@</string>
+	<string>%APP_NAME% %APP_VERSION%, __APP_COPYRIGHT__</string>
 	<key>CFBundleIconFile</key>
 	<string>zenses</string>
 	<key>CFBundleIdentifier</key>
