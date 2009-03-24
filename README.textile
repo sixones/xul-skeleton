@@ -16,21 +16,14 @@ h3. Predefined variables
 To make things abit easier, I've used some variables throughout the application you can simply go through each variable
 and use find + replace across all the files
 
-	__APP_NAME__ - Application name (without spaces), use the folder name of your project
-
-	__APP_DISPLAY_NAME__ - Application display name
-	
-	__APP_VERSION__ - Version string
-	
-	__APP_VENDOR__ - Vendor name
-	
-	__APP_ID__ - Unique application id, usually something like org.sixones@zenses or a GUID
-	
-	__APP_COPYRIGHT__ - Copyright notice
-	
-	__MAIN_CHROME__ - The default xul chrome file to launch on startup, dont include the .xul extension
-	
-	__IDL_UUID__ - Random GUID for your first idl header
+	* <code>__APP_NAME__</code> - Application name (without spaces), use the folder name of your project
+	* <code>__APP_DISPLAY_NAME__</code> - Application display name
+	* <code>__APP_VERSION__</code> - Version string
+	* <code>__APP_VENDOR__</code> - Vendor name
+	* <code>__APP_ID__</code> - Unique application id, usually something like org.sixones@zenses or a GUID
+	* <code>__APP_COPYRIGHT__</code> - Copyright notice
+	* <code>__MAIN_CHROME__</code> - The default xul chrome file to launch on startup, dont include the .xul extension
+	* <code>__IDL_UUID__</code> - Random GUID for your first idl header
 
 h3. XPCOM components
 
